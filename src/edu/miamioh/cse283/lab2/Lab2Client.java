@@ -48,23 +48,27 @@ public class Lab2Client {
 			s.send(dpack);
 
 			// receive a bunch of packets from the server:
-			long time = System.currentTimeMillis();
 			int rec = 0;
 			int loops = 0;
 			int size = Integer.parseInt(args[2]);
 			DatagramPacket tpack = new DatagramPacket(new byte[size], size);
+			long time = System.nanoTime();
+			s.setSoTimeout(2000);
 
-			while(true) {
-				s.receive(tpack);
-				byte[] tpackData = tpack.getData();
-				if (tpackData[0] == -1)
-					break;
-				rec += tpack.getLength();
-				loops++;
+			try {
+				while (true) {
+					s.receive(tpack);
+					byte[] tpackData = tpack.getData();
+					if (tpackData[0] == -1)
+						break;
+					rec += tpack.getLength();
+					loops++;
+				}
+			} catch (SocketTimeoutException e) {
 			}
-			long end = System.currentTimeMillis();
+			double end = System.nanoTime() - 2000000000;
 			double dur = end - time;
-			dur /= 1000;
+			dur /= 1000000000;
 			
 			// calculate bytes/second (see System.currentTimeMillis() or System.nanoTime())
 			double throughput = (rec / dur);

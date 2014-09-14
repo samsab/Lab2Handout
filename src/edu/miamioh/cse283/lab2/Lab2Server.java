@@ -23,7 +23,7 @@ public class Lab2Server {
 			
 			// for convenience, the server should tell us what addresses it's listening on;
 			// see DatagramSocket.getLocalSocketAddress() and InetAddress.getLocalHost().
-			System.out.printf("Lab2Server listening on %s:%s \n", InetAddress.getLocalHost(), PORT);
+			System.out.printf("Lab2Server listening on %s:%s \n", InetAddress.getLocalHost(), s.getLocalPort());
 			
 			// you will probably want to output something like:
 			//   "Lab2Server listening on: <ip address>:<port>"
