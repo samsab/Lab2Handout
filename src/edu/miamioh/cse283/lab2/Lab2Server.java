@@ -50,16 +50,11 @@ public class Lab2Server {
 				
 				// - send the packet
 				// end loop
+				DatagramPacket goPackers = new DatagramPacket(new byte[len], len, ia, cPort);
 				for (int i = 0; i < numPack; i++){
-					DatagramPacket goPackers = new DatagramPacket(new byte[len], len, ia, cPort);
 					Thread.sleep(delur);
 					s.send(goPackers);
 				}
-				
-				byte[] bits = {-1};
-				for (int i = 0; i < 5; i++)
-					s.send(new DatagramPacket(bits, 1, ia, cPort));
-				
 				System.out.println("Finished sending packets");
 			}
 		} catch(SocketException ex) { // this will not compile until you start filling in the socket code
